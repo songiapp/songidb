@@ -1,6 +1,7 @@
 {
     "databases": [
         {
+            "id": "zpfull",
             "title": "Zpěvníkátor",
             "description": "Original database for old Zpevnikator app",
             "size": "10 000+",
