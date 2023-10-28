@@ -3,6 +3,10 @@
     "fast-xml-parser": "^4.3.2"
   },
   "scripts": {
-    "convert:zp": "cd zpevnikator && node convert.mjs"
+    "zp:convert": "cd zpevnikator && node convert.mjs",
+
+    "sup:groups": "cd supermusic && node groups.mjs",
+    "sup:songs": "cd supermusic && node songs.mjs"
+
   }
 }
