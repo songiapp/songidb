@@ -4,35 +4,34 @@ const groups = JSON.parse(
   await fs.readFile("groups.json", { encoding: "utf-8" })
 );
 
-const songsById = {};
-
 let processed = 0;
-for (const group of groups) {
+const yellowGroups = groups.filter((x) => x.isYellow);
+for (const group of yellowGroups) {
   processed += 1;
-  console.log(`Processing group ${processed}/${groups.length}: ${group.name}`);
+  console.log(
+    `Processing group ${processed}/${yellowGroups.length}: ${group.name}`
+  );
   const resp = await fetch(`https://supermusic.cz/${group.link}`);
   const text = await resp.text();
 
-  const matches = [...text.matchAll(/\"skupina.php\?idpiesne=[^\"]+\"/g)].map(
-    (x) => x[0]
-  );
+  const matches = [
+    ...text.matchAll(/\"skupina.php\?idpiesne=[^\"]+\"\&sid=\>[^<]+\<img/g),
+  ].map((x) => x[0]);
 
-  for (const link of matches) {
+  group.songs = [];
+
+  for (const anchor of matches) {
+    const link = anchor.match(/\"skupina.php\?idpiesne=[^\"]+\"/)[0];
+    const name = anchor.match(/\>([^\<]+)\</)[1];
     const m = link.match(/idpiesne=([\d]+)/);
     const id = m[1];
-    if (songsById[id]) {
-      continue;
-    }
-    songsById[id] = {
+
+    group.songs.push({
       id,
       link: link.slice(1, -1),
-      group: group.name,
-      groupId: group.id,
-    };
+      name: name.trim(),
+    });
   }
 }
 
-await fs.writeFile(
-  "songs.json",
-  JSON.stringify(Object.values(songsById), undefined, 2)
-);
+await fs.writeFile("group-songs.json", JSON.stringify(groups, undefined, 2));
