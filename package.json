@@ -7,6 +7,7 @@
     "zp:convert": "cd zpevnikator && node convert.mjs",
     "sumu:groups": "cd supermusic && node groups.mjs",
     "sumu:songs": "cd supermusic && node songs.mjs",
-    "sumu:texts": "cd supermusic && node songtext.mjs"
+    "sumu:texts": "cd supermusic && node songtext.mjs",
+    "sumu:join": "cd supermusic && node joinchunks.mjs"
   }
 }
