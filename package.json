@@ -5,8 +5,8 @@
   "scripts": {
     "zp:convert": "cd zpevnikator && node convert.mjs",
 
-    "sup:groups": "cd supermusic && node groups.mjs",
-    "sup:songs": "cd supermusic && node songs.mjs"
+    "sumu:groups": "cd supermusic && node groups.mjs",
+    "sumu:songs": "cd supermusic && node songs.mjs"
 
   }
 }
