@@ -6,8 +6,10 @@ const groups = JSON.parse(
 
 const songsById = {};
 
-for (const group of groups.slice(0, 20)) {
-  console.log("Processing group:", group.name);
+let processed = 0;
+for (const group of groups) {
+  processed += 1;
+  console.log(`Processing group ${processed}/${groups.length}: ${group.name}`);
   const resp = await fetch(`https://supermusic.cz/${group.link}`);
   const text = await resp.text();
 
@@ -24,6 +26,8 @@ for (const group of groups.slice(0, 20)) {
     songsById[id] = {
       id,
       link: link.slice(1, -1),
+      group: group.name,
+      groupId: group.id,
     };
   }
 }
