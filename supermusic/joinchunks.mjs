@@ -13,4 +13,7 @@ for (const file of await fs.readdir("texts")) {
 }
 
 console.log(`Writing ${allSongs.length} songs`);
-await fs.writeFile("yellowdb.json", JSON.stringify(allSongs, undefined, 2));
+await fs.writeFile(
+  "yellowdb.json",
+  JSON.stringify({ songs: allSongs }, undefined, 2)
+);
