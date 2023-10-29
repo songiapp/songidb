@@ -1,4 +1,5 @@
 import fs from "fs/promises";
+import { buildArtistMap } from "../utils/artistmap.mjs";
 
 const allSongs = [];
 
@@ -12,8 +13,23 @@ for (const file of await fs.readdir("texts")) {
   allSongs.push(...songs);
 }
 
+const [artistMap, artists] = buildArtistMap(
+  allSongs.map((song) => song.artist)
+);
+
 console.log(`Writing ${allSongs.length} songs`);
 await fs.writeFile(
   "yellowdb.json",
-  JSON.stringify({ songs: allSongs }, undefined, 2)
+  JSON.stringify(
+    {
+      artists,
+      songs: allSongs.map((song) => ({
+        ...song,
+        artist: undefined,
+        artistId: artistMap[song.artist],
+      })),
+    },
+    undefined,
+    2
+  )
 );
