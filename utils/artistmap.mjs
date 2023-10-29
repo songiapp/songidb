@@ -12,7 +12,7 @@ export function buildArtistMap(artistArray) {
   const processedIds = new Set();
 
   for (const artist of artistArray) {
-    const id = _.kebabCase(removeDiacritics(artist));
+    const id = _.kebabCase(removeDiacritics(artist)) || "no-artist";
     artistMap[artist] = id;
 
     if (processedIds.has(id)) {
