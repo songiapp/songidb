@@ -13,6 +13,7 @@
 
     "vzp:groups": "cd velkyzpevnik && node groups.mjs",
     "vzp:songs": "cd velkyzpevnik && node songs.mjs",
-    "vzp:texts": "cd velkyzpevnik && node songtext.mjs"
+    "vzp:texts": "cd velkyzpevnik && node songtext.mjs",
+    "vzp:join": "cd velkyzpevnik && node joinchunks.mjs"
   }
 }

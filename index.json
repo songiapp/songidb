@@ -13,6 +13,14 @@
             "description": "Large database from Slovakia",
             "size": "29 000+",
             "url": "https://raw.githubusercontent.com/songiapp/songidb/main/supermusic/yellowdb.json"
+        },
+        {
+            "id": "vzp",
+            "title": "Velký zpěvník",
+            "description": "Large database from Czech Republic",
+            "size": "16 900+",
+            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/velkyzpevnik/db.json"
         }
+
     ]
 }
