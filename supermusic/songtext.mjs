@@ -55,10 +55,6 @@ for (const group of groups) {
     }
   }
 
-  if (songs.length > 0) {
-    await fs.writeFile(chunkFile, JSON.stringify(songs, undefined, 2));
-    console.log(`Written group ${group.name} with ${songs.length} songs`);
-  } else {
-    console.log(`Chunk ${group.name} has no songs`);
-  }
+  await fs.writeFile(chunkFile, JSON.stringify(songs, undefined, 2));
+  console.log(`Written group ${group.name} with ${songs.length} songs`);
 }
