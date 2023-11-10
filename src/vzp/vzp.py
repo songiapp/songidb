@@ -1,8 +1,10 @@
 import scrapy
 import re
-from ..utils import range_char;
 
-class VzpSpider(scrapy.Spider):
+
+# from . .utils import range_char
+
+class Spider(scrapy.Spider):
     name = "vzp"
     # allowed_domains = ["www.seznam.cz"]
     allowed_domains = ["www.velkyzpevnik.cz"]
@@ -11,6 +13,7 @@ class VzpSpider(scrapy.Spider):
     # start_urls = ["https://www.velkyzpevnik.cz/"]
     # start_urls = ["https://www.seznam.cz/"]
 
+    # custom_settings = {'JOBDIR': '.tmp.vzp'}
 
     def parse(self, response):
         for artist in response.css('.interpret'):
@@ -44,8 +47,6 @@ class VzpSpider(scrapy.Spider):
                     'songHref': song.css('::attr(href)').get()
                 }
             )
-
-
 
         # for song in response.xpath("//p[@class='song-title']/.."):
         #     yield {
