@@ -1,6 +1,10 @@
 import shutil
 import os
 import sys
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(current_dir)
+
 import vzp
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
@@ -29,6 +33,9 @@ match cmd:
         spider = getPackage(pkg).Spider
         process.crawl(spider)
         process.start()
+    case 'format':
+        formatter = getPackage(pkg).Formatter(pkg)
+        formatter.run()
     case 'reset':
         shutil.rmtree(f'.tmp/{pkg}', True)
         try:
