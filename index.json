@@ -19,7 +19,7 @@
             "title": "Velký zpěvník",
             "description": "Large database from Czech Republic",
             "size": "16 900+",
-            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/velkyzpevnik/db.json"
+            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/vzp/db.json"
         }
 
     ]
