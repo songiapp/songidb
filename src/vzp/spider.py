@@ -1,15 +1,17 @@
 import scrapy
 import re
 
+from utils import range_char
 
-# from . .utils import range_char
 
 class Spider(scrapy.Spider):
     name = "vzp"
     # allowed_domains = ["www.seznam.cz"]
     allowed_domains = ["www.velkyzpevnik.cz"]
-    start_urls = ["https://www.velkyzpevnik.cz/interpreti/1/abecedne-vzestupne?letter=q"]
-    # start_urls = (f'https://www.velkyzpevnik.cz/interpreti/1/abecedne-vzestupne?letter={letter}' for letter in range_char('a','z'))
+    # start_urls = ["https://www.velkyzpevnik.cz/interpreti/1/abecedne-vzestupne?letter=q"]
+    start_urls = (f'https://www.velkyzpevnik.cz/interpreti/1/abecedne-vzestupne?letter={letter}' for letter in
+                  range_char('a', 'z'))
+
     # start_urls = ["https://www.velkyzpevnik.cz/"]
     # start_urls = ["https://www.seznam.cz/"]
 

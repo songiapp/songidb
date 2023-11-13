@@ -9,4 +9,4 @@ class Formatter(ScrapyFormatter):
             kwargs['songHref'][1:].replace('/', '-'),
             kwargs['artistHref'][1:],
             kwargs['songTitle'],
-            kwargs['songText'])
+            self.fix_chord_lines(kwargs['songText']))

@@ -68,3 +68,47 @@ class ScrapyFormatter:
                 'artists': self.artists,
                 'songs': self.songs,
             }, indent=2))
+
+    def join_chord_line(self, chord_line, text_line):
+        chord_pos = 0
+        text_pos = 0
+        res = ""
+        while text_pos < len(text_line):
+            if chord_pos < len(chord_line) and chord_line[chord_pos] == "[":
+                res += "["
+                chord_pos += 1
+                chord_len = 0
+                while chord_pos < len(chord_line) and chord_line[chord_pos] != "]":
+                    res += chord_line[chord_pos]
+                    chord_pos += 1
+                    chord_len += 1
+                res += "]"
+                if chord_pos < len(chord_line) and chord_line[chord_pos] == "]":
+                    chord_pos += 1
+
+                while chord_len > 0 and text_pos < len(text_line):
+                    res += text_line[text_pos]
+                    text_pos += 1
+                    chord_len -= 1
+
+                continue
+            res += text_line[text_pos]
+            chord_pos += 1
+            text_pos += 1
+
+        if chord_pos < len(chord_line):
+            res += chord_line[chord_pos:].replace(" ", "")
+        return res
+
+    def fix_chord_lines(self, text):
+        res = ""
+        lines = text.split("\n")
+        i = 0
+        while i < len(lines):
+            if "[" in lines[i] and i + 1 < len(lines):
+                res += self.join_chord_line(lines[i], lines[i + 1]) + "\n"
+                i += 2
+            else:
+                res += lines[i] + "\n"
+                i += 1
+        return res
