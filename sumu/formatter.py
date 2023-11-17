@@ -1,12 +1,16 @@
 from scrapy_formatter import ScrapyFormatter
+import re
 
 class Formatter(ScrapyFormatter):
     def process_artist(self, **kwargs):
-        self.add_artist(kwargs['artistName'], kwargs['artistHref'][1:])
+        m = re.match(r'.*idskupiny=(\d+)', kwargs['artistHref'])
+        self.add_artist(kwargs['artistName'], m[1])
 
     def process_song(self, **kwargs):
+        ma = re.match(r'.*idskupiny=(\d+)', kwargs['artistHref'])
+        ms = re.match(r'.*idpiesne=(\d+)', kwargs['songHref'])
         self.add_song(
-            kwargs['songHref'][1:].replace('/', '-'),
-            kwargs['artistHref'][1:],
+            ms[1],
+            ma[1],
             kwargs['songTitle'],
-            self.fix_chord_lines(kwargs['songText']))
+            kwargs['songText'])

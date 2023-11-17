@@ -42,7 +42,7 @@ class ScrapyFormatter:
         self.artists.append(artist)
         return artist_id
 
-    def add_song(self, id, artist_id, title, text, lang=None, args:dict = None):
+    def add_song(self, id, artist_id, title, text, lang=None, args:dict = {}):
         self.songs.append({
             'id': id,
             'title': title,

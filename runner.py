@@ -7,6 +7,7 @@ import sys
 
 import vzp
 import zp8
+import sumu
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 
@@ -17,6 +18,8 @@ def getPackage(name):
             return vzp
         case 'zp8':
             return zp8
+        case 'sumu':
+            return sumu
 
 
 pkg = sys.argv[1]
