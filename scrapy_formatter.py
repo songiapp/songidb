@@ -1,13 +1,14 @@
 import json
+import pathlib
 from unidecode import unidecode
 import re
 
 
 def kebab_case(s):
     return '-'.join(
-        re.sub(r"(\s|_|-)+", " ",
+        re.sub(r"(\s|_|-|\.)+", " ",
                re.sub(r"[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+",
-                      lambda mo: ' ' + mo.group(0).lower(), s)).split())
+                      lambda mo: ' ' + mo.group(0).lower(), re.sub(r'[^a-zA-Z0-9\-_\s.]', '', s))).split())
 
 
 class ScrapyFormatter:
@@ -25,27 +26,30 @@ class ScrapyFormatter:
     def process_song(self, **kwargs):
         pass
 
-    def add_artist(self, name, id):
-        if not id:
-            # create id from name
-            id = kebab_case(unidecode(name)) or 'no-artist'
+    def add_artist(self, name, id=None):
+        artist_id = id if id else kebab_case(unidecode(name)) or 'no-artist'
+        # if not id:
+        #     # create id from name
+        #     id = kebab_case(unidecode(name)) or 'no-artist'
 
-        if id in self.artists_by_id:
-            return id
+        if artist_id in self.artists_by_id:
+            return artist_id
         artist = {
-            'id': id,
+            'id': artist_id,
             'name': name,
         }
-        self.artists_by_id = artist
+        self.artists_by_id[artist_id] = artist
         self.artists.append(artist)
-        return id
+        return artist_id
 
-    def add_song(self, id, artist_id, title, text):
+    def add_song(self, id, artist_id, title, text, lang=None, args:dict = None):
         self.songs.append({
             'id': id,
-            'artistId': artist_id,
             'title': title,
-            'text': text
+            'artistId': artist_id,
+            'lang': lang,
+            'text': text,
+            **{k: v for k, v in args.items() if v}
         })
 
     def run(self):
@@ -63,11 +67,18 @@ class ScrapyFormatter:
         for song in loaded_songs:
             self.process_song(**song)
 
-        with open(f'{self.pkg}/db.json', "w") as f:
-            f.write(json.dumps({
-                'artists': self.artists,
-                'songs': self.songs,
-            }, indent=2))
+        self.save_database()
+
+    def save_database(self):
+        pathlib.Path(f'{self.pkg}/db.json').write_text(json.dumps({
+            'artists': self.artists,
+            'songs': self.songs,
+        }, indent=2, ensure_ascii=False), encoding='utf-8')
+        # with open(f'{self.pkg}/db.json', "w") as f:
+        #     f.write(json.dumps({
+        #         'artists': self.artists,
+        #         'songs': self.songs,
+        #     }, indent=2))
 
     def join_chord_line(self, chord_line, text_line):
         chord_pos = 0

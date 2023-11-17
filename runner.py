@@ -6,6 +6,7 @@ import sys
 # sys.path.append(current_dir)
 
 import vzp
+import zp8
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 
@@ -14,6 +15,8 @@ def getPackage(name):
     match name:
         case 'vzp':
             return vzp
+        case 'zp8':
+            return zp8
 
 
 pkg = sys.argv[1]
