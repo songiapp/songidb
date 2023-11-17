@@ -2,6 +2,7 @@ import json
 import pathlib
 from unidecode import unidecode
 import re
+import langdetect
 
 
 def kebab_case(s):
@@ -42,12 +43,12 @@ class ScrapyFormatter:
         self.artists.append(artist)
         return artist_id
 
-    def add_song(self, id, artist_id, title, text, lang=None, args:dict = {}):
+    def add_song(self, id, artist_id, title, text, lang=None, args: dict = {}):
         self.songs.append({
             'id': id,
             'title': title,
             'artistId': artist_id,
-            'lang': lang,
+            'lang': lang or langdetect.detect(re.sub(r'\[.*?]', '', text)),
             'text': text,
             **{k: v for k, v in args.items() if v}
         })

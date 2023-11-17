@@ -8,10 +8,10 @@ class Spider(scrapy.Spider):
     name = "vzp"
     # allowed_domains = ["www.seznam.cz"]
     allowed_domains = ["supermusic.cz"]
-    start_urls = ["https://supermusic.cz/skupiny.php?od=k"]
+    # start_urls = ["https://supermusic.cz/skupiny.php?od=k"]
 
-    # start_urls = (f'https://supermusic.cz/skupiny.php?od=${letter}' for letter in
-    #               range_char('a', 'z'))
+    start_urls = (f'https://supermusic.cz/skupiny.php?od=${letter}' for letter in
+                  range_char('a', 'z'))
 
     # start_urls = ["https://www.velkyzpevnik.cz/"]
     # start_urls = ["https://www.seznam.cz/"]
@@ -19,7 +19,7 @@ class Spider(scrapy.Spider):
     # custom_settings = {'JOBDIR': '.tmp.vzp'}
 
     def parse(self, response):
-        count = 0
+        # count = 0
         for artist in response.xpath('//a'):
             if artist.css('::attr(class)').get() == 'interpretzoznam':
                 continue
@@ -29,9 +29,9 @@ class Spider(scrapy.Spider):
             if not href.startswith('skupina.php?idskupiny='):
                 continue
 
-            count += 1
-            if count > 3:
-                break
+            # count += 1
+            # if count > 3:
+            #     break
 
             # yield {
             #     'type': 'artist',
@@ -49,7 +49,7 @@ class Spider(scrapy.Spider):
             )
 
     def parse_group(self, response, **kwargs):
-        count = 0
+        # count = 0
         processed_songs = []
 
         yield {
@@ -69,9 +69,9 @@ class Spider(scrapy.Spider):
 
             title = title.strip()
 
-            count += 1
-            if count > 3:
-                break
+            # count += 1
+            # if count > 3:
+            #     break
 
             if title.upper() in processed_songs:
                 continue
