@@ -44,14 +44,23 @@ class ScrapyFormatter:
         return artist_id
 
     def add_song(self, id, artist_id, title, text, lang=None, args: dict = {}):
-        self.songs.append({
+        song_obj = {
             'id': id,
             'title': title,
             'artistId': artist_id,
-            'lang': lang or langdetect.detect(re.sub(r'\[.*?]', '', text)),
             'text': text,
             **{k: v for k, v in args.items() if v}
-        })
+        }
+        lang = None
+        try:
+            lang = lang or langdetect.detect(re.sub(r'\[.*?]', '', text))
+        except:
+            lang = None
+
+        if lang:
+            song_obj['lang'] = lang
+
+        self.songs.append(song_obj)
 
     def run(self):
         loaded_songs = []

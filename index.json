@@ -15,6 +15,13 @@
             "url": "https://raw.githubusercontent.com/songiapp/songidb/main/supermusic/yellowdb.json"
         },
         {
+            "id": "sumu2",
+            "title": "Supermusic 2",
+            "description": "Large database from Slovakia",
+            "size": "29 000+",
+            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db.json"
+        },
+        {
             "id": "vzp",
             "title": "Velký zpěvník",
             "description": "Large database from Czech Republic",
