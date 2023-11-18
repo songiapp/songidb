@@ -1,17 +1,15 @@
 import shutil
 import os
 import sys
+import gzip
 
-# current_dir = os.path.dirname(os.path.abspath(__file__))
-# sys.path.append(current_dir)
+from scrapy.crawler import CrawlerProcess
+from scrapy.utils.project import get_project_settings
 
 import vzp
 import zp8
 import sumu
-import gzip
-from scrapy.crawler import CrawlerProcess
-from scrapy.utils.project import get_project_settings
-
+import ech
 
 def getPackage(name):
     match name:
@@ -21,6 +19,8 @@ def getPackage(name):
             return zp8
         case 'sumu':
             return sumu
+        case 'ech':
+            return ech
 
 
 pkg = sys.argv[1]

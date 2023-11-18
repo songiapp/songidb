@@ -10,7 +10,7 @@ class Spider(scrapy.Spider):
     start_urls = ['https://m.e-chords.com/top-artists.htm']
 
     def parse(self, response):
-        for artist in response.css('.list-group-item-heading.artista-nome'):
+        for artist in response.xpath("//h3[@class='list-group-item-heading artista-nome']/a"):
             yield response.follow(
                 artist.css('::attr(href)').get(),
                 self.parse_group,
@@ -19,11 +19,6 @@ class Spider(scrapy.Spider):
                     'artistHref': artist.css('::attr(href)').get(),
                 }
             )
-        # for artist in response.css('.interpret'):
-        #     yield {
-        #         'name': artist.css('::text').get().strip(),
-        #         'href': artist.css('::attr(href)').get(),
-        #         }
 
     def parse_group(self, response, **kwargs):
         yield {
@@ -31,32 +26,24 @@ class Spider(scrapy.Spider):
             **kwargs,
         }
 
-        for song in response.xpath("//p[@class='song-title']/.."):
+        for song in response.xpath("//a[@class='list-group-item']"):
             yield response.follow(
                 song.css('::attr(href)').get(),
                 self.parse_song,
                 cb_kwargs={
                     **kwargs,
-                    'songTitle': song.css('.song-title::text').get().strip(),
+                    'songTitle': song.css('::text').get().strip(),
                     'songHref': song.css('::attr(href)').get()
                 }
             )
 
-        # for song in response.xpath("//p[@class='song-title']/.."):
-        #     yield {
-        #         **kwargs,
-        #         'name': song.css('.song-title::text').get().strip(),
-        #         'href': song.css('::attr(href)').get(),
-        #         }
-
     def parse_song(self, response, **kwargs):
-        for song in response.xpath("//pre[@class='format']"):
+        for song in response.xpath("//pre[@id='core']"):
+            text = song.extract()
+            text = re.sub(r'<u>([^<]+)</u>', r'[\1]', text)
+            text = re.sub(r'<[^>]+>', '', text)
             yield {
                 'type': 'song',
                 **kwargs,
-                'songText': re.sub(
-                    r'<[^>]+>',
-                    '',
-                    re.sub(r'<span class="chord"[^>]*>([^<]+)</span>', r'[\1]', song.extract())
-                )
+                'songText': text
             }
