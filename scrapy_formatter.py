@@ -1,5 +1,7 @@
+import gzip
 import json
 import pathlib
+import os
 from unidecode import unidecode
 import re
 import langdetect
@@ -13,11 +15,13 @@ def kebab_case(s):
 
 
 class ScrapyFormatter:
-    def __init__(self, pkg):
+    def __init__(self, pkg, **kwargs):
 
         self.songs = []
         self.artists = []
         self.pkg = pkg
+        self.by_lang = kwargs['by_lang']
+        self.by_lang_list = kwargs['by_lang_list']
 
         self.artists_by_id = {}
 
@@ -53,42 +57,59 @@ class ScrapyFormatter:
         }
         lang = None
         try:
-            lang = lang or langdetect.detect(re.sub(r'\[.*?]', '', text))
+            lang = lang or langdetect.detect(re.sub(r'\[.*?]', '', text)) or 'na'
         except:
-            lang = None
+            lang = 'na'
 
         if lang:
             song_obj['lang'] = lang
 
         self.songs.append(song_obj)
 
+    def filter_loaded_song(self, song):
+        return True
+
+    def open_file(self):
+        if os.path.isfile(f'{self.pkg}/crawled.jsonl'):
+            return open(f'{self.pkg}/crawled.jsonl')
+        if os.path.isfile(f'{self.pkg}/crawled.jsonl.gz'):
+            return gzip.open(f'{self.pkg}/crawled.jsonl.gz', 'rt')
+
+        raise Exception('Input file crawled.json not found')
+
     def run(self):
         loaded_songs = []
 
-        with open(f'{self.pkg}/crawled.jsonl') as f:
+        with self.open_file() as f:
             for line in f:
                 obj = json.loads(line)
                 match obj['type']:
                     case 'artist':
                         self.process_artist(**obj)
                     case 'song':
-                        loaded_songs.append(obj)
+                        if self.filter_loaded_song(obj):
+                            loaded_songs.append(obj)
 
         for song in loaded_songs:
             self.process_song(**song)
 
         self.save_database()
 
-    def save_database(self):
-        pathlib.Path(f'{self.pkg}/db.json').write_text(json.dumps({
-            'artists': self.artists,
-            'songs': self.songs,
+    def do_save_file(self, file, songs):
+        used_artists = set(s['artistId'] for s in songs)
+        pathlib.Path(file).write_text(json.dumps({
+            'artists': [a for a in self.artists if a['id'] in used_artists],
+            'songs': songs,
         }, indent=2, ensure_ascii=False), encoding='utf-8')
-        # with open(f'{self.pkg}/db.json', "w") as f:
-        #     f.write(json.dumps({
-        #         'artists': self.artists,
-        #         'songs': self.songs,
-        #     }, indent=2))
+
+    def save_database(self):
+        if self.by_lang or self.by_lang_list:
+            langs = self.by_lang_list.split(',') if self.by_lang_list else set(s['lang'] for s in self.songs)
+
+            for lang in langs:
+                self.do_save_file(f'{self.pkg}/db-{lang}.json', [s for s in self.songs if s['lang'] == lang])
+        else:
+            self.do_save_file(f'{self.pkg}/db.json', self.songs)
 
     def join_chord_line(self, chord_line, text_line):
         chord_pos = 0

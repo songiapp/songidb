@@ -15,11 +15,46 @@
             "url": "https://raw.githubusercontent.com/songiapp/songidb/main/supermusic/yellowdb.json"
         },
         {
-            "id": "sumu2",
-            "title": "Supermusic 2",
-            "description": "Large database from Slovakia",
+            "id": "sumu_cs",
+            "title": "Supermusic-cs",
+            "description": "Large database from Slovakia, czech songs",
             "size": "29 000+",
-            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db.json"
+            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-cs.json"
+        },
+        {
+            "id": "sumu_en",
+            "title": "Supermusic-en",
+            "description": "Large database from Slovakia, english songs",
+            "size": "29 000+",
+            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-en.json"
+        },
+        {
+            "id": "sumu_fr",
+            "title": "Supermusic-fr",
+            "description": "Large database from Slovakia, french songs",
+            "size": "29 000+",
+            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-fr.json"
+        },
+        {
+            "id": "sumu_it",
+            "title": "Supermusic-it",
+            "description": "Large database from Slovakia, italian songs",
+            "size": "29 000+",
+            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-it.json"
+        },
+        {
+            "id": "sumu_sk",
+            "title": "Supermusic-sk",
+            "description": "Large database from Slovakia, slovak songs",
+            "size": "29 000+",
+            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-sk.json"
+        },
+        {
+            "id": "sumu_de",
+            "title": "Supermusic-de",
+            "description": "Large database from Slovakia, german songs",
+            "size": "29 000+",
+            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-de.json"
         },
         {
             "id": "vzp",

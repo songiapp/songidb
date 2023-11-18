@@ -8,6 +8,7 @@ import sys
 import vzp
 import zp8
 import sumu
+import gzip
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 
@@ -25,6 +26,11 @@ def getPackage(name):
 pkg = sys.argv[1]
 cmd = sys.argv[2]
 
+by_lang_list = next((x for x in sys.argv if x.startswith('-l:')), None)
+if by_lang_list:
+    by_lang_list = by_lang_list[3:]
+by_lang = '-l' in sys.argv
+
 match cmd:
     case 'crawl':
         settings = get_project_settings()
@@ -40,8 +46,12 @@ match cmd:
         process.crawl(spider)
         process.start()
     case 'format':
-        formatter = getPackage(pkg).Formatter(pkg)
+        formatter = getPackage(pkg).Formatter(pkg, by_lang=by_lang, by_lang_list=by_lang_list)
         formatter.run()
+    case 'compress':
+        with open(f'{pkg}/crawled.jsonl', 'rb') as f_in:
+            with gzip.open(f'{pkg}/crawled.jsonl.gz', 'wb') as f_out:
+                shutil.copyfileobj(f_in, f_out)
     case 'reset':
         shutil.rmtree(f'.tmp/{pkg}', True)
         try:

@@ -112,7 +112,7 @@ class Spider(scrapy.Spider):
             text = re.sub('<pre>.*?</pre>', '', text).strip()
             text = re.sub('<a class="sup[^>]+>([^<]*)</a>', r'[\1]', text).strip()
             text = re.sub('<br[^>]*>', '\n', text).strip()
-            text = re.sub('\r', '', text).strip()
+            # text = re.sub('\r', '', text).strip()
             text = re.sub(r'<[^>]+>', '', text).strip()
 
             if not text:

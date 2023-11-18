@@ -14,3 +14,7 @@ class Formatter(ScrapyFormatter):
             ma[1],
             kwargs['songTitle'],
             kwargs['songText'])
+
+    def filter_loaded_song(self, song):
+        # only song with chords
+        return '[' in song['songText']
