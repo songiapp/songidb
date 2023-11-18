@@ -8,13 +8,6 @@
             "url": "https://raw.githubusercontent.com/songiapp/songidb/main/zp8/db.json"
         },
         {
-            "id": "sumu1",
-            "title": "Supermusic",
-            "description": "Large database from Slovakia",
-            "size": "29 000+",
-            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/supermusic/yellowdb.json"
-        },
-        {
             "id": "sumu_cs",
             "title": "Supermusic-cs",
             "description": "Large database from Slovakia, czech songs",
@@ -62,7 +55,13 @@
             "description": "Large database from Czech Republic",
             "size": "16 900+",
             "url": "https://raw.githubusercontent.com/songiapp/songidb/main/vzp/db.json"
+        },
+        {
+            "id": "sumu1",
+            "title": "Supermusic-old",
+            "description": "Large database from Slovakia - old version",
+            "size": "29 000+",
+            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-old.json"
         }
-
     ]
 }

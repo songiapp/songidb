@@ -15,13 +15,13 @@ def kebab_case(s):
 
 
 class ScrapyFormatter:
-    def __init__(self, pkg, **kwargs):
+    def __init__(self, pkg):
 
         self.songs = []
         self.artists = []
         self.pkg = pkg
-        self.by_lang = kwargs['by_lang']
-        self.by_lang_list = kwargs['by_lang_list']
+        self.by_lang = None
+        self.by_lang_list = None
 
         self.artists_by_id = {}
 
@@ -104,7 +104,7 @@ class ScrapyFormatter:
 
     def save_database(self):
         if self.by_lang or self.by_lang_list:
-            langs = self.by_lang_list.split(',') if self.by_lang_list else set(s['lang'] for s in self.songs)
+            langs = self.by_lang_list or set(s['lang'] for s in self.songs)
 
             for lang in langs:
                 self.do_save_file(f'{self.pkg}/db-{lang}.json', [s for s in self.songs if s['lang'] == lang])

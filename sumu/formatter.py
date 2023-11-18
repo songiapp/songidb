@@ -1,7 +1,12 @@
 from scrapy_formatter import ScrapyFormatter
 import re
 
+
 class Formatter(ScrapyFormatter):
+    def __init__(self, pkg):
+        super().__init__(pkg)
+        self.by_lang_list = ['cs', 'de', 'en', 'es', 'fr', 'it', 'sk']
+
     def process_artist(self, **kwargs):
         m = re.match(r'.*idskupiny=(\d+)', kwargs['artistHref'])
         self.add_artist(kwargs['artistName'], m[1])

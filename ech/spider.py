@@ -10,7 +10,7 @@ class Spider(scrapy.Spider):
     start_urls = ['https://m.e-chords.com/top-artists.htm']
 
     def parse(self, response):
-        for artist in response.css('.interpret'):
+        for artist in response.css('.list-group-item-heading.artista-nome'):
             yield response.follow(
                 artist.css('::attr(href)').get(),
                 self.parse_group,
