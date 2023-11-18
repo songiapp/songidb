@@ -1,2 +1,2 @@
 from .spider import Spider
-# from .formatter import Formatter
+from .formatter import Formatter

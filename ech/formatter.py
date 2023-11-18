@@ -14,4 +14,4 @@ class Formatter(ScrapyFormatter):
 
     def filter_loaded_song(self, song):
         # only song from chords folder
-        return song['songHref'].startsWith('https://m.e-chords.com/chords/')
+        return song['songHref'].startswith('https://m.e-chords.com/chords/')

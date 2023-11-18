@@ -1,6 +1,13 @@
 {
     "databases": [
         {
+            "id": "ech",
+            "title": "Top 100",
+            "description": "Top 100 artists from e-chords",
+            "size": "16 900+",
+            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/ech/db.json"
+        },
+        {
             "id": "zpfull",
             "title": "Zpěvníkátor",
             "description": "Original database for old Zpevnikator app",
