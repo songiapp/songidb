@@ -10,8 +10,8 @@ class Spider(scrapy.Spider):
     allowed_domains = ["supermusic.cz"]
     # start_urls = ["https://supermusic.cz/skupiny.php?od=k"]
 
-    start_urls = (f'https://supermusic.cz/skupiny.php?od=${letter}' for letter in
-                  range_char('a', 'z'))
+    start_urls = (f'https://supermusic.cz/skupiny.php?od={letter}' for letter in
+                  [''] + list(range_char('a', 'z')))
 
     # start_urls = ["https://www.velkyzpevnik.cz/"]
     # start_urls = ["https://www.seznam.cz/"]
