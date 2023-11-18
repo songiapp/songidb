@@ -10,7 +10,7 @@ class Spider(scrapy.Spider):
     start_urls = ['https://m.e-chords.com/top-artists.htm']
 
     def parse(self, response):
-        for artist in response.xpath("//h3[@class='list-group-item-heading artista-nome']/a")[:3]:
+        for artist in response.xpath("//h3[@class='list-group-item-heading artista-nome']/a"):
             yield response.follow(
                 artist.css('::attr(href)').get(),
                 self.parse_group,
@@ -26,7 +26,7 @@ class Spider(scrapy.Spider):
             **kwargs,
         }
 
-        for song in response.xpath("//a[@class='list-group-item']")[:3]:
+        for song in response.xpath("//a[@class='list-group-item']"):
             yield response.follow(
                 song.css('::attr(href)').get(),
                 self.parse_song,
