@@ -5,7 +5,7 @@
             "title": "Top 100",
             "description": "Top 100 artists from e-chords",
             "size": "13 900+",
-            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/ech/db.json"
+            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/ech/db.songpro"
         },
         {
             "id": "zpfull",
@@ -19,56 +19,49 @@
             "title": "Supermusic-cs",
             "description": "Large database from Slovakia, czech songs",
             "size": "13 900+",
-            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-cs.json"
+            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-cs.songpro"
         },
         {
             "id": "sumu_en",
             "title": "Supermusic-en",
             "description": "Large database from Slovakia, english songs",
             "size": "27 400+",
-            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-en.json"
+            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-en.songpro"
         },
         {
             "id": "sumu_fr",
             "title": "Supermusic-fr",
             "description": "Large database from Slovakia, french songs",
             "size": "181",
-            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-fr.json"
+            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-fr.songpro"
         },
         {
             "id": "sumu_it",
             "title": "Supermusic-it",
             "description": "Large database from Slovakia, italian songs",
             "size": "64",
-            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-it.json"
+            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-it.songpro"
         },
         {
             "id": "sumu_sk",
             "title": "Supermusic-sk",
             "description": "Large database from Slovakia, slovak songs",
             "size": "6900+",
-            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-sk.json"
+            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-sk.songpro"
         },
         {
             "id": "sumu_de",
             "title": "Supermusic-de",
             "description": "Large database from Slovakia, german songs",
             "size": "1000+",
-            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-de.json"
+            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-de.songpro"
         },
         {
             "id": "vzp",
             "title": "Velký zpěvník",
             "description": "Large database from Czech Republic",
             "size": "16 900+",
-            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/vzp/db.json"
-        },
-        {
-            "id": "sumu1",
-            "title": "Supermusic-old",
-            "description": "Large database from Slovakia - old version",
-            "size": "29 000+",
-            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-old.json"
+            "url": "https://raw.githubusercontent.com/songiapp/songidb/main/vzp/db.songpro"
         }
     ]
 }
