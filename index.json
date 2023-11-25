@@ -4,7 +4,7 @@
             "id": "ech",
             "title": "Top 100",
             "description": "Top 100 artists from e-chords",
-            "size": "16 900+",
+            "size": "13 900+",
             "url": "https://raw.githubusercontent.com/songiapp/songidb/main/ech/db.json"
         },
         {
@@ -18,42 +18,42 @@
             "id": "sumu_cs",
             "title": "Supermusic-cs",
             "description": "Large database from Slovakia, czech songs",
-            "size": "29 000+",
+            "size": "13 900+",
             "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-cs.json"
         },
         {
             "id": "sumu_en",
             "title": "Supermusic-en",
             "description": "Large database from Slovakia, english songs",
-            "size": "29 000+",
+            "size": "27 400+",
             "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-en.json"
         },
         {
             "id": "sumu_fr",
             "title": "Supermusic-fr",
             "description": "Large database from Slovakia, french songs",
-            "size": "29 000+",
+            "size": "181",
             "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-fr.json"
         },
         {
             "id": "sumu_it",
             "title": "Supermusic-it",
             "description": "Large database from Slovakia, italian songs",
-            "size": "29 000+",
+            "size": "64",
             "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-it.json"
         },
         {
             "id": "sumu_sk",
             "title": "Supermusic-sk",
             "description": "Large database from Slovakia, slovak songs",
-            "size": "29 000+",
+            "size": "6900+",
             "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-sk.json"
         },
         {
             "id": "sumu_de",
             "title": "Supermusic-de",
             "description": "Large database from Slovakia, german songs",
-            "size": "29 000+",
+            "size": "1000+",
             "url": "https://raw.githubusercontent.com/songiapp/songidb/main/sumu/db-de.json"
         },
         {
