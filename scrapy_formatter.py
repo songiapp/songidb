@@ -18,40 +18,17 @@ class ScrapyFormatter:
     def __init__(self, pkg):
 
         self.songs = []
-        self.artists = []
         self.pkg = pkg
         self.by_lang = None
         self.by_lang_list = None
 
-        self.artists_by_id = {}
-
-    def process_artist(self, **kwargs):
-        pass
-
     def process_song(self, **kwargs):
         pass
 
-    def add_artist(self, name, id=None):
-        artist_id = id if id else kebab_case(unidecode(name)) or 'no-artist'
-        # if not id:
-        #     # create id from name
-        #     id = kebab_case(unidecode(name)) or 'no-artist'
-
-        if artist_id in self.artists_by_id:
-            return artist_id
-        artist = {
-            'id': artist_id,
-            'name': name,
-        }
-        self.artists_by_id[artist_id] = artist
-        self.artists.append(artist)
-        return artist_id
-
-    def add_song(self, id, artist_id, title, text, lang=None, args: dict = {}):
+    def add_song(self, artist, title, text, lang=None, args: dict = {}):
         song_obj = {
-            'id': id,
             'title': title,
-            'artistId': artist_id,
+            'artist': artist,
             'text': text,
             **{k: v for k, v in args.items() if v}
         }
@@ -84,8 +61,6 @@ class ScrapyFormatter:
             for line in f:
                 obj = json.loads(line)
                 match obj['type']:
-                    case 'artist':
-                        self.process_artist(**obj)
                     case 'song':
                         if self.filter_loaded_song(obj):
                             loaded_songs.append(obj)
@@ -96,20 +71,29 @@ class ScrapyFormatter:
         self.save_database()
 
     def do_save_file(self, file, songs):
-        used_artists = set(s['artistId'] for s in songs)
-        pathlib.Path(file).write_text(json.dumps({
-            'artists': [a for a in self.artists if a['id'] in used_artists],
-            'songs': songs,
-        }, indent=2, ensure_ascii=False), encoding='utf-8')
+        with open(f'{file}.songpro', 'w') as fw:
+            for song in songs:
+                fw.write(f'@title={song['title']}\n')
+                fw.write(f'@artist={song['artist']}\n')
+                if 'lang' in song:
+                    fw.write(f'!lang={song['lang']}\n')
+                if 'author' in song:
+                    fw.write(f'@author={song['author']}\n')
+                if 'remark' in song:
+                    fw.write(f'!remark={song['remark']}\n')
+                fw.write('\n')
+                fw.write(song['text'])
+                fw.write('\n---\n')
+
 
     def save_database(self):
         if self.by_lang or self.by_lang_list:
             langs = self.by_lang_list or set(s['lang'] for s in self.songs)
 
             for lang in langs:
-                self.do_save_file(f'{self.pkg}/db-{lang}.json', [s for s in self.songs if s['lang'] == lang])
+                self.do_save_file(f'{self.pkg}/db-{lang}', [s for s in self.songs if s['lang'] == lang])
         else:
-            self.do_save_file(f'{self.pkg}/db.json', self.songs)
+            self.do_save_file(f'{self.pkg}/db', self.songs)
 
     def join_chord_line(self, chord_line, text_line):
         chord_pos = 0

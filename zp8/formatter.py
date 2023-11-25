@@ -1,6 +1,9 @@
 import xml.etree.ElementTree as ET
 from scrapy_formatter import ScrapyFormatter
+import re
 
+def replace_labels(text):
+    return re.sub(r'^\.([^\n]+)(\n|$)', r'# \1\n', text, flags=re.MULTILINE)
 
 class Formatter(ScrapyFormatter):
     def __init__(self, pkg):
@@ -18,8 +21,7 @@ class Formatter(ScrapyFormatter):
             lang = child.findtext('{http://zpevnik.net/InetSongDb.xsd}lang')
             author = child.findtext('{http://zpevnik.net/InetSongDb.xsd}author')
             remark = child.findtext('{http://zpevnik.net/InetSongDb.xsd}remark')
-            artist_id = self.add_artist(groupname)
 
-            self.add_song(id, artist_id, title, text, lang, {'author': author, 'remark': remark})
+            self.add_song(groupname, title, replace_labels(text), lang, {'author': author, 'remark': remark})
 
         self.save_database()
