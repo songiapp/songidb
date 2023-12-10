@@ -1,5 +1,5 @@
 from scrapy_formatter import ScrapyFormatter
-
+import re
 
 class Formatter(ScrapyFormatter):
     def __init__(self, pkg):
@@ -7,8 +7,9 @@ class Formatter(ScrapyFormatter):
         self.by_lang_list = ['cs', 'de', 'en', 'es', 'fr', 'it', 'sk']
 
     def process_song(self, **kwargs):
+        artist = re.sub(r'\s*\([\d]+\)\s*$', '', kwargs['artistName'])
         self.add_song(
-            kwargs['artistName'],
+            artist,
             kwargs['songTitle'],
             kwargs['songText'])
 
