@@ -6,4 +6,4 @@ class Formatter(ScrapyFormatter):
         self.add_song(
             kwargs['artistName'],
             kwargs['songTitle'],
-            self.fix_chord_lines(kwargs['songText']))
+            self.convert_labels(self.fix_chord_lines(kwargs['songText'])))

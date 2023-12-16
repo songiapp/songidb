@@ -138,3 +138,24 @@ class ScrapyFormatter:
                 res += lines[i] + "\n"
                 i += 1
         return res
+
+    def convert_labels(self, text):
+        # return text
+        res = ""
+        lines = text.split("\n")
+        for line in lines:
+            m = re.match(r'^(\d+|R|Ref|Rec|Refr|R\d|Ref\d|®)\s*(\.\s*:|[:.])(.*)$', line, re.IGNORECASE)
+            if m:
+                label = m.group(1)
+                delimiter = m.group(2)
+                if label == '®':
+                    label = 'Ref'
+                    delimiter = '.:'
+
+                res += f'# {label}{delimiter}\n'
+                if m.group(3).strip():
+                    res += m.group(3).strip() + '\n'
+            else:
+                res += line.strip() + "\n"
+
+        return res

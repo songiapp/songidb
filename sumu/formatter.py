@@ -11,7 +11,7 @@ class Formatter(ScrapyFormatter):
         self.add_song(
             artist,
             kwargs['songTitle'],
-            kwargs['songText'])
+            self.convert_labels(kwargs['songText']))
 
     def filter_loaded_song(self, song):
         # only song with chords
