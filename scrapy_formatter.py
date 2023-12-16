@@ -148,9 +148,9 @@ class ScrapyFormatter:
             if m:
                 label = m.group(1)
                 delimiter = m.group(2)
-                if label == '®':
-                    label = 'Ref'
-                    delimiter = '.:'
+                # if label == '®':
+                #     label = 'Ref'
+                #     delimiter = '.:'
 
                 res += f'# {label}{delimiter}\n'
                 if m.group(3).strip():
